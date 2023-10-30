@@ -11,7 +11,7 @@ import SwiftUI
 struct GiveGiveApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            GGView()
         }
     }
 }
