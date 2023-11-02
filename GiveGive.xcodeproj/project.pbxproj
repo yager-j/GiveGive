@@ -34,6 +34,8 @@
 		C81110D62AF3D15900931D20 /* FirebaseRemoteConfigSwift in Frameworks */ = {isa = PBXBuildFile; productRef = C81110D52AF3D15900931D20 /* FirebaseRemoteConfigSwift */; };
 		C81110D82AF3D15900931D20 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = C81110D72AF3D15900931D20 /* FirebaseStorage */; };
 		C81110DA2AF3D15900931D20 /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = C81110D92AF3D15900931D20 /* FirebaseStorageCombine-Community */; };
+		C81110E22AF3E7D000931D20 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81110E12AF3E7D000931D20 /* AuthViewModel.swift */; };
+		C81110E42AF3E92400931D20 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C81110E32AF3E92400931D20 /* GoogleService-Info.plist */; };
 		C85FBD9F2AEFD9AC002BFD36 /* GiveGiveApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85FBD9E2AEFD9AC002BFD36 /* GiveGiveApp.swift */; };
 		C85FBDA12AEFD9AC002BFD36 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85FBDA02AEFD9AC002BFD36 /* ContentView.swift */; };
 		C85FBDA32AEFD9AE002BFD36 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C85FBDA22AEFD9AE002BFD36 /* Assets.xcassets */; };
@@ -50,6 +52,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C81110E12AF3E7D000931D20 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
+		C81110E32AF3E92400931D20 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C85FBD9B2AEFD9AC002BFD36 /* GiveGive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GiveGive.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C85FBD9E2AEFD9AC002BFD36 /* GiveGiveApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiveGiveApp.swift; sourceTree = "<group>"; };
 		C85FBDA02AEFD9AC002BFD36 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -114,18 +118,19 @@
 			path = Assets;
 			sourceTree = "<group>";
 		};
-		C81110A02AF3A36900931D20 /* Managers */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Managers;
-			sourceTree = "<group>";
-		};
 		C81110A12AF3A37D00931D20 /* Models */ = {
 			isa = PBXGroup;
 			children = (
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		C81110E02AF3E7B500931D20 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				C81110E12AF3E7D000931D20 /* AuthViewModel.swift */,
+			);
+			path = Managers;
 			sourceTree = "<group>";
 		};
 		C85FBD922AEFD9AC002BFD36 = {
@@ -147,8 +152,9 @@
 		C85FBD9D2AEFD9AC002BFD36 /* GiveGive */ = {
 			isa = PBXGroup;
 			children = (
+				C81110E32AF3E92400931D20 /* GoogleService-Info.plist */,
+				C81110E02AF3E7B500931D20 /* Managers */,
 				C81110A12AF3A37D00931D20 /* Models */,
-				C81110A02AF3A36900931D20 /* Managers */,
 				C811109F2AF3A34F00931D20 /* Assets */,
 				C85FBDBC2AEFE1F6002BFD36 /* Features */,
 				C85FBDBB2AEFDF24002BFD36 /* Info.plist */,
@@ -304,6 +310,7 @@
 				C85FBDB62AEFDDEC002BFD36 /* WorkSans-Regular.ttf in Resources */,
 				C85FBDA32AEFD9AE002BFD36 /* Assets.xcassets in Resources */,
 				C85FBDB82AEFDDEC002BFD36 /* WorkSans-SemiBold.ttf in Resources */,
+				C81110E42AF3E92400931D20 /* GoogleService-Info.plist in Resources */,
 				C85FBDB52AEFDDEC002BFD36 /* WorkSans-Light.ttf in Resources */,
 				C85FBDB72AEFDDEC002BFD36 /* WorkSans-Bold.ttf in Resources */,
 			);
@@ -316,6 +323,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C81110E22AF3E7D000931D20 /* AuthViewModel.swift in Sources */,
 				C85FBDC12AEFE24E002BFD36 /* GGView.swift in Sources */,
 				C85FBDA12AEFD9AC002BFD36 /* ContentView.swift in Sources */,
 				C85FBD9F2AEFD9AC002BFD36 /* GiveGiveApp.swift in Sources */,

@@ -10,12 +10,16 @@ import RealityKit
 
 struct GGView: View {
     
+    @EnvironmentObject var authViewModel: AuthViewModel
     @State private var showSheet = false
-
+    
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
             AnimationView()
             FeedButton(showSheet: $showSheet)
+        }
+        .onAppear {
+            authViewModel.anonymousSignIn()
         }
         .ignoresSafeArea()
         .sheet(isPresented: $showSheet) {
