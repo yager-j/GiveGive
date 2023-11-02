@@ -19,7 +19,7 @@ struct GGView: View {
         }
         .ignoresSafeArea()
         .sheet(isPresented: $showSheet) {
-            Text("Hello")
+            Text("NewCameraView")
         }
     }
 }
