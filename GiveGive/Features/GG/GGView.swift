@@ -15,14 +15,19 @@ struct GGView: View {
     let databaseManager = DatabaseManager()
     
     var body: some View {
-        ZStack(alignment: .bottomTrailing) {
-            AnimationView()
-            FeedButton(showSheet: $showSheet)
+        NavigationStack {
+            ZStack(alignment: .bottomTrailing) {
+                AnimationView()
+                VStack {
+                    FeedButton(showSheet: $showSheet)
+                    BellyButton()
+                }
+            }
+            .onAppear {
+                authViewModel.anonymousSignIn()
+            }
+            .ignoresSafeArea()
         }
-        .onAppear {
-            authViewModel.anonymousSignIn()
-        }
-        .ignoresSafeArea()
         .sheet(isPresented: $showSheet) {
             Text("NewCameraView")
                 .onAppear {
@@ -74,7 +79,25 @@ struct FeedButton: View {
                 .clipShape(Circle())
                 .shadow(radius: 4, x: 0, y: 4)
         }
-        .padding(EdgeInsets(top: 0, leading: 0, bottom: 32, trailing: 32))
+        .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 32))
+    }
+}
+
+struct BellyButton: View {
+    
+    var body: some View {
+        NavigationLink {
+            ToyListView()
+        } label: {
+            Image(systemName: "paperplane")
+                .font(.title.weight(.semibold))
+                .padding()
+                .background(Color.pink)
+                .foregroundColor(.white)
+                .clipShape(Circle())
+                .shadow(radius: 4, x: 0, y: 4)
+        }
+        .padding(EdgeInsets(top: 16, leading: 0, bottom: 32, trailing: 32))
     }
 }
 
