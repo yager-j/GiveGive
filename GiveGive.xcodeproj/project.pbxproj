@@ -38,6 +38,7 @@
 		C81110E42AF3E92400931D20 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C81110E32AF3E92400931D20 /* GoogleService-Info.plist */; };
 		C81110E62AF91C2600931D20 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81110E52AF91C2600931D20 /* DatabaseManager.swift */; };
 		C81110E82AF91CC200931D20 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81110E72AF91CC200931D20 /* User.swift */; };
+		C81110EB2AF9351900931D20 /* ToyListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81110EA2AF9351900931D20 /* ToyListView.swift */; };
 		C85FBD9F2AEFD9AC002BFD36 /* GiveGiveApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85FBD9E2AEFD9AC002BFD36 /* GiveGiveApp.swift */; };
 		C85FBDA12AEFD9AC002BFD36 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85FBDA02AEFD9AC002BFD36 /* ContentView.swift */; };
 		C85FBDA32AEFD9AE002BFD36 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C85FBDA22AEFD9AE002BFD36 /* Assets.xcassets */; };
@@ -58,6 +59,7 @@
 		C81110E32AF3E92400931D20 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C81110E52AF91C2600931D20 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		C81110E72AF91CC200931D20 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		C81110EA2AF9351900931D20 /* ToyListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToyListView.swift; sourceTree = "<group>"; };
 		C85FBD9B2AEFD9AC002BFD36 /* GiveGive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GiveGive.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C85FBD9E2AEFD9AC002BFD36 /* GiveGiveApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiveGiveApp.swift; sourceTree = "<group>"; };
 		C85FBDA02AEFD9AC002BFD36 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -139,6 +141,14 @@
 			path = Managers;
 			sourceTree = "<group>";
 		};
+		C81110E92AF9350700931D20 /* ToyList */ = {
+			isa = PBXGroup;
+			children = (
+				C81110EA2AF9351900931D20 /* ToyListView.swift */,
+			);
+			path = ToyList;
+			sourceTree = "<group>";
+		};
 		C85FBD922AEFD9AC002BFD36 = {
 			isa = PBXGroup;
 			children = (
@@ -197,6 +207,7 @@
 		C85FBDBC2AEFE1F6002BFD36 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				C81110E92AF9350700931D20 /* ToyList */,
 				C85FBDBD2AEFE1FE002BFD36 /* GG */,
 			);
 			path = Features;
@@ -334,6 +345,7 @@
 				C81110E82AF91CC200931D20 /* User.swift in Sources */,
 				C81110E62AF91C2600931D20 /* DatabaseManager.swift in Sources */,
 				C85FBDA12AEFD9AC002BFD36 /* ContentView.swift in Sources */,
+				C81110EB2AF9351900931D20 /* ToyListView.swift in Sources */,
 				C85FBD9F2AEFD9AC002BFD36 /* GiveGiveApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
