@@ -12,6 +12,7 @@ struct GGView: View {
     
     @EnvironmentObject var authViewModel: AuthViewModel
     @State private var showSheet = false
+    let databaseManager = DatabaseManager()
     
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
@@ -24,6 +25,9 @@ struct GGView: View {
         .ignoresSafeArea()
         .sheet(isPresented: $showSheet) {
             Text("NewCameraView")
+                .onAppear {
+                    databaseManager.addToy(toy: Toy())
+                }
         }
     }
 }
