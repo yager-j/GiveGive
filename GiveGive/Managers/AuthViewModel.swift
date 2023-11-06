@@ -11,6 +11,7 @@ import FirebaseAuth
 class AuthViewModel: ObservableObject {
     
     let auth = Auth.auth()
+    let databaseManager = DatabaseManager()
     
     /**
      Signs user in anonymously
@@ -21,12 +22,24 @@ class AuthViewModel: ObservableObject {
             guard let user = authResult?.user else { return }
             let uid = user.uid
             print("Jo uid: \(uid)")
-           /* DispatchQueue.main.async {
+            DispatchQueue.main.async {
               //  self?.signedIn = true
               //  self?.loginType = .anon
-              //  self?.createNewUser()
-            }*/
+                self.createNewUser()
+            }
         }
+    }
+    
+    /**
+     Creates new user object and saves it to Firestore user collection
+     */
+    func createNewUser() {
+        guard let userUID = auth.currentUser?.uid else { return }
+        
+        let newUser = User()
+        newUser.id = userUID
+                
+        databaseManager.addUserToDb(user: newUser)
     }
 }
 
