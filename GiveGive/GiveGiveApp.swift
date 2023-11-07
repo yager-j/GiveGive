@@ -12,13 +12,11 @@ import Firebase
 struct GiveGiveApp: App {
     
     // Register app delegate for Firebase setup
-        @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     
     var body: some Scene {
         WindowGroup {
-            let authViewModel = AuthViewModel()
             GGView()
-                .environmentObject(authViewModel)
         }
     }
 }

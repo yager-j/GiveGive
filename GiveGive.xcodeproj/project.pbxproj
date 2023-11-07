@@ -34,11 +34,11 @@
 		C81110D62AF3D15900931D20 /* FirebaseRemoteConfigSwift in Frameworks */ = {isa = PBXBuildFile; productRef = C81110D52AF3D15900931D20 /* FirebaseRemoteConfigSwift */; };
 		C81110D82AF3D15900931D20 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = C81110D72AF3D15900931D20 /* FirebaseStorage */; };
 		C81110DA2AF3D15900931D20 /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = C81110D92AF3D15900931D20 /* FirebaseStorageCombine-Community */; };
-		C81110E22AF3E7D000931D20 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81110E12AF3E7D000931D20 /* AuthViewModel.swift */; };
 		C81110E42AF3E92400931D20 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C81110E32AF3E92400931D20 /* GoogleService-Info.plist */; };
 		C81110E62AF91C2600931D20 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81110E52AF91C2600931D20 /* DatabaseManager.swift */; };
 		C81110E82AF91CC200931D20 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81110E72AF91CC200931D20 /* User.swift */; };
 		C81110EB2AF9351900931D20 /* ToyListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81110EA2AF9351900931D20 /* ToyListView.swift */; };
+		C81110ED2AF98DD800931D20 /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81110EC2AF98DD800931D20 /* AuthenticationManager.swift */; };
 		C85FBD9F2AEFD9AC002BFD36 /* GiveGiveApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85FBD9E2AEFD9AC002BFD36 /* GiveGiveApp.swift */; };
 		C85FBDA12AEFD9AC002BFD36 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85FBDA02AEFD9AC002BFD36 /* ContentView.swift */; };
 		C85FBDA32AEFD9AE002BFD36 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C85FBDA22AEFD9AE002BFD36 /* Assets.xcassets */; };
@@ -55,11 +55,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		C81110E12AF3E7D000931D20 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		C81110E32AF3E92400931D20 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C81110E52AF91C2600931D20 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		C81110E72AF91CC200931D20 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		C81110EA2AF9351900931D20 /* ToyListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToyListView.swift; sourceTree = "<group>"; };
+		C81110EC2AF98DD800931D20 /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
 		C85FBD9B2AEFD9AC002BFD36 /* GiveGive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GiveGive.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C85FBD9E2AEFD9AC002BFD36 /* GiveGiveApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiveGiveApp.swift; sourceTree = "<group>"; };
 		C85FBDA02AEFD9AC002BFD36 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -135,8 +135,8 @@
 		C81110E02AF3E7B500931D20 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
-				C81110E12AF3E7D000931D20 /* AuthViewModel.swift */,
 				C81110E52AF91C2600931D20 /* DatabaseManager.swift */,
+				C81110EC2AF98DD800931D20 /* AuthenticationManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -340,7 +340,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C81110E22AF3E7D000931D20 /* AuthViewModel.swift in Sources */,
+				C81110ED2AF98DD800931D20 /* AuthenticationManager.swift in Sources */,
 				C85FBDC12AEFE24E002BFD36 /* GGView.swift in Sources */,
 				C81110E82AF91CC200931D20 /* User.swift in Sources */,
 				C81110E62AF91C2600931D20 /* DatabaseManager.swift in Sources */,

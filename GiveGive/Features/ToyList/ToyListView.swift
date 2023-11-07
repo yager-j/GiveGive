@@ -11,7 +11,6 @@ import FirebaseFirestoreSwift
 
 struct ToyListView: View {
     
-    let databaseManager = DatabaseManager()
     @State var currentToyList: [Toy] = [Toy(), Toy()]
     
     var body: some View {
@@ -55,3 +54,5 @@ struct ToyListView: View {
         }
     }
 }
+
+// TODO: Make ViewModel for ToyListView with listenToFirestore in it

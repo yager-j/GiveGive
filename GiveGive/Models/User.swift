@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FirebaseFirestore
 import FirebaseFirestoreSwift
 import CoreLocation
 
@@ -26,7 +27,7 @@ class Toy: Codable, Identifiable {
     @DocumentID var id: String?
     
     var category: String = ""
-    var dateAdded = Date()
+    var dateAdded = Timestamp()
     var images: [String] = []
     var location: Location = Location()
     var readyToSwap: Bool = false
