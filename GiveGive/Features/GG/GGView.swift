@@ -8,11 +8,19 @@
 import SwiftUI
 import RealityKit
 
+@MainActor
+final class GGViewModel: ObservableObject {
+    
+    func signInUser() async throws {
+        try await AuthenticationManager.shared.anonymousSignIn()
+    }
+}
+
 struct GGView: View {
     
-    @EnvironmentObject var authViewModel: AuthViewModel
+    @StateObject private var viewModel = GGViewModel()
+    
     @State private var showSheet = false
-    let databaseManager = DatabaseManager()
     
     var body: some View {
         NavigationStack {
@@ -24,14 +32,20 @@ struct GGView: View {
                 }
             }
             .onAppear {
-                authViewModel.anonymousSignIn()
+                Task {
+                    do {
+                        try await viewModel.signInUser()
+                    } catch {
+                        print(error)
+                    }
+                }
             }
             .ignoresSafeArea()
         }
         .sheet(isPresented: $showSheet) {
             Text("NewCameraView")
                 .onAppear {
-                    databaseManager.addToy(toy: Toy())
+                    DatabaseManager.shared.addToy(toy: Toy())
                 }
         }
     }
