@@ -14,17 +14,10 @@ struct ToyListView: View {
     @State var currentToyList: [Toy] = [Toy(), Toy()]
     
     var body: some View {
-        ScrollView {
-            ForEach(currentToyList) { toy in
-                VStack(alignment: .leading) {
-                    Text(toy.id ?? "no id")
-                }
-            }
-            .padding(.horizontal)
+        ToyGridView(currentToyList: $currentToyList)
             .onAppear {
                 listenToFirestore()
             }
-        }
     }
     
     func listenToFirestore() {
@@ -52,6 +45,36 @@ struct ToyListView: View {
                 }
             }
         }
+    }
+}
+
+struct ToyGridView: View {
+    
+    @Binding var currentToyList: [Toy]
+    
+    var body: some View {
+        
+        ScrollView{
+            LazyVGrid(columns: Array(repeating: .init(.flexible()), count: UIDevice.current.userInterfaceIdiom == .pad ? 4 : 2), spacing: 10) {
+                ForEach(currentToyList) { item in
+                    
+                    ZStack {
+                        Rectangle()
+                            .fill(.black)
+                            .cornerRadius(10)
+                            .aspectRatio(contentMode: .fit)
+                        Image("piggy")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                        Text(String(item.id ?? "no id"))
+                            .foregroundColor(.white)
+                            .font(.title)
+                    }
+                    .padding(5)
+                }
+            }
+            
+        } .padding()
     }
 }
 
