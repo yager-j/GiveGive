@@ -31,6 +31,9 @@
 		C85FBDB92AEFDDEC002BFD36 /* WorkSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C85FBDB22AEFDDEC002BFD36 /* WorkSans-ExtraBold.ttf */; };
 		C85FBDC12AEFE24E002BFD36 /* GGView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85FBDC02AEFE24E002BFD36 /* GGView.swift */; };
 		C85FBDC42AEFE3A0002BFD36 /* gg.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C85FBDC32AEFE3A0002BFD36 /* gg.usdz */; };
+		C8A3ED522B0B8640002D558C /* ToyProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8A3ED512B0B8640002D558C /* ToyProfileView.swift */; };
+		C8A3ED552B0B8670002D558C /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = C8A3ED542B0B8670002D558C /* CodeScanner */; };
+		C8A3ED572B0B86BF002D558C /* QRView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8A3ED562B0B86BF002D558C /* QRView.swift */; };
 		C8FDDAB72AFD064000A24A82 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FDDAB62AFD064000A24A82 /* StorageManager.swift */; };
 /* End PBXBuildFile section */
 
@@ -55,6 +58,8 @@
 		C85FBDBB2AEFDF24002BFD36 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		C85FBDC02AEFE24E002BFD36 /* GGView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGView.swift; sourceTree = "<group>"; };
 		C85FBDC32AEFE3A0002BFD36 /* gg.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = gg.usdz; sourceTree = "<group>"; };
+		C8A3ED512B0B8640002D558C /* ToyProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToyProfileView.swift; sourceTree = "<group>"; };
+		C8A3ED562B0B86BF002D558C /* QRView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRView.swift; sourceTree = "<group>"; };
 		C8FDDAB62AFD064000A24A82 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -68,6 +73,7 @@
 				C81110A62AF3D15900931D20 /* FirebaseAnalytics in Frameworks */,
 				C81110C22AF3D15900931D20 /* FirebaseFirestoreSwift in Frameworks */,
 				C81110B22AF3D15900931D20 /* FirebaseAuth in Frameworks */,
+				C8A3ED552B0B8670002D558C /* CodeScanner in Frameworks */,
 				C81110D82AF3D15900931D20 /* FirebaseStorage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -168,6 +174,7 @@
 		C85FBDBC2AEFE1F6002BFD36 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				C8A3ED502B0B862D002D558C /* ToyProfile */,
 				C81110E92AF9350700931D20 /* ToyList */,
 				C85FBDBD2AEFE1FE002BFD36 /* GG */,
 			);
@@ -188,6 +195,15 @@
 				C85FBDC32AEFE3A0002BFD36 /* gg.usdz */,
 			);
 			path = ARModels;
+			sourceTree = "<group>";
+		};
+		C8A3ED502B0B862D002D558C /* ToyProfile */ = {
+			isa = PBXGroup;
+			children = (
+				C8A3ED512B0B8640002D558C /* ToyProfileView.swift */,
+				C8A3ED562B0B86BF002D558C /* QRView.swift */,
+			);
+			path = ToyProfile;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -213,6 +229,7 @@
 				C81110BD2AF3D15900931D20 /* FirebaseFirestore */,
 				C81110C12AF3D15900931D20 /* FirebaseFirestoreSwift */,
 				C81110D72AF3D15900931D20 /* FirebaseStorage */,
+				C8A3ED542B0B8670002D558C /* CodeScanner */,
 			);
 			productName = GiveGive;
 			productReference = C85FBD9B2AEFD9AC002BFD36 /* GiveGive.app */;
@@ -244,6 +261,7 @@
 			mainGroup = C85FBD922AEFD9AC002BFD36;
 			packageReferences = (
 				C81110A42AF3D15800931D20 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				C8A3ED532B0B8670002D558C /* XCRemoteSwiftPackageReference "CodeScanner" */,
 			);
 			productRefGroup = C85FBD9C2AEFD9AC002BFD36 /* Products */;
 			projectDirPath = "";
@@ -282,6 +300,8 @@
 			files = (
 				C81110ED2AF98DD800931D20 /* AuthenticationManager.swift in Sources */,
 				C85FBDC12AEFE24E002BFD36 /* GGView.swift in Sources */,
+				C8A3ED522B0B8640002D558C /* ToyProfileView.swift in Sources */,
+				C8A3ED572B0B86BF002D558C /* QRView.swift in Sources */,
 				C81110E82AF91CC200931D20 /* User.swift in Sources */,
 				C81110E62AF91C2600931D20 /* DatabaseManager.swift in Sources */,
 				C85FBDA12AEFD9AC002BFD36 /* ContentView.swift in Sources */,
@@ -505,6 +525,14 @@
 				minimumVersion = 10.17.0;
 			};
 		};
+		C8A3ED532B0B8670002D558C /* XCRemoteSwiftPackageReference "CodeScanner" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/twostraws/CodeScanner";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.3.3;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -537,6 +565,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C81110A42AF3D15800931D20 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;
+		};
+		C8A3ED542B0B8670002D558C /* CodeScanner */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C8A3ED532B0B8670002D558C /* XCRemoteSwiftPackageReference "CodeScanner" */;
+			productName = CodeScanner;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
