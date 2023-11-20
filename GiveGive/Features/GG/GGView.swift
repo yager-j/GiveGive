@@ -32,6 +32,13 @@ final class GGViewModel: ObservableObject {
             print("Jo SUCCESS")
             print("Jo \(path)")
             print("Jo \(name)")
+            
+            var newToy = Toy()
+            
+          //  try await DatabaseManager.shared.updateToyImagePath(toy: newToy, path: name)
+            newToy.images.append(name)
+            DatabaseManager.shared.addToy(toy: newToy)
+            print("Jo addToySuccess \(newToy.images)")
         }
     }
 }

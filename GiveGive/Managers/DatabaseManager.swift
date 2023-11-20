@@ -59,6 +59,17 @@ class DatabaseManager: ObservableObject {
     
     
     // MARK: UPDATE
+    
+    func updateToyImagePath(toy: Toy, path: String) async throws {
+        guard let id = toy.id else { return }
+        let data: [String: Any] = [
+            id : path
+        ]
+        toy.images.append(path)
+        try await db.collection("toys").document(id).setData(data)
+        print("Jo updateToyImagePathSuccess")
+    }
+    
     /*
     /**
      Updates toy in Firestore
