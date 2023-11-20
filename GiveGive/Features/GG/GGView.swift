@@ -36,7 +36,8 @@ final class GGViewModel: ObservableObject {
             var newToy = Toy()
             
           //  try await DatabaseManager.shared.updateToyImagePath(toy: newToy, path: name)
-            newToy.images.append(name)
+            let url = try await StorageManager.shared.getUrlForImage(path: path)
+            newToy.images.append(url.absoluteString)
             DatabaseManager.shared.addToy(toy: newToy)
             print("Jo addToySuccess \(newToy.images)")
         }
@@ -171,7 +172,7 @@ struct BellyButton: View {
         NavigationLink {
             ToyListView()
         } label: {
-            Image(systemName: "paperplane")
+            Image(systemName: "square.grid.3x3.fill")
                 .font(.title.weight(.semibold))
                 .padding()
                 .background(Color.pink)
