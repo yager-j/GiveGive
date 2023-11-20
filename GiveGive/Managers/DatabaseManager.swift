@@ -22,7 +22,7 @@ class DatabaseManager: ObservableObject {
     // MARK: CREATE
     
     /**
-     Adds user as a document in Firestore
+     Add user as a document in Firestore
      */
     func addUserToDb(user: User) async throws {
         if let id = user.id {
@@ -36,7 +36,7 @@ class DatabaseManager: ObservableObject {
     }
    
     /**
-     Adds toy to Firestore
+     Add toy as a document in Firestore
      */
     func addToy(toy: Toy) {
         let newToy = toy
