@@ -12,8 +12,16 @@ final class AuthenticationManager {
     
     static let shared = AuthenticationManager()
     let auth = Auth.auth()
+    var currentUser: User?
 
-    private init() { }
+    private init() {
+        guard let userUID = Auth.auth().currentUser?.uid else { return }
+        
+        let newUser = User()
+        newUser.id = userUID
+                
+        self.currentUser = newUser
+    }
     
     /**
      Signs user in anonymously
@@ -30,11 +38,12 @@ final class AuthenticationManager {
      */
     func createNewUser() async throws {
 
-        guard let userUID = auth.currentUser?.uid else { return }
+        guard let userUID = Auth.auth().currentUser?.uid else { return }
         
         let newUser = User()
         newUser.id = userUID
                 
+        self.currentUser = newUser
         try await DatabaseManager.shared.addUserToDb(user: newUser)
         print("Jo uid \(userUID)")
     }
