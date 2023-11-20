@@ -9,6 +9,7 @@ import SwiftUI
 import RealityKit
 import PhotosUI
 import FirebaseAuth
+import WebKit
 
 @MainActor
 final class GGViewModel: ObservableObject {
@@ -55,7 +56,9 @@ struct GGView: View {
     var body: some View {
         NavigationStack {
             ZStack(alignment: .bottomTrailing) {
-                AnimationView()
+              //  AnimationView()
+                WebView(url: URL(string: "https://my.spline.design/ggverticalfulltransition-8c0e832f19bb844220a9804add0cac98/")!)
+
                 VStack {
                     //  FeedButton(showSheet: $showSheet)
                     //  FeedButton2(selectedItem: $selectedItem)
@@ -100,7 +103,20 @@ struct GGView: View {
     }
 }
 
-struct AnimationView: View {
+struct WebView: UIViewRepresentable {
+    let url: URL
+    
+    func makeUIView(context: Context) -> WKWebView {
+        return WKWebView()
+    }
+    
+    func updateUIView(_ webView: WKWebView, context: Context) {
+        let request = URLRequest(url: url)
+        webView.load(request)
+    }
+}
+
+/*struct AnimationView: View {
     var body: some View {
         ZStack {
             ARViewContainer()
@@ -124,7 +140,7 @@ struct ARViewContainer: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: ARView, context: Context) { }
-}
+}*/
 
 struct FeedButton: View {
     
