@@ -73,28 +73,32 @@ struct ToyThumbnailView: View {
     @State private var url: URL? = nil
     
     var body: some View {
-        ZStack {
-            Rectangle()
-                .fill(.black)
-                .cornerRadius(10)
-                .aspectRatio(contentMode: .fit)
-            
-            if let urlString = toy.images.first, let url = URL(string: urlString) {
-                AsyncImage(url: url) { image in
-                    image
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 150, height: 150)
-                        .cornerRadius(10)
-                } placeholder: {
-                    ProgressView()
-                        .frame(width: 150, height: 150)
+        NavigationLink {
+            ToyProfileView(toy: toy)
+        } label: {
+            ZStack {
+                Rectangle()
+                    .fill(.black)
+                    .cornerRadius(10)
+                    .aspectRatio(contentMode: .fit)
+                
+                if let urlString = toy.images.first, let url = URL(string: urlString) {
+                    AsyncImage(url: url) { image in
+                        image
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 150, height: 150)
+                            .cornerRadius(10)
+                    } placeholder: {
+                        ProgressView()
+                            .frame(width: 150, height: 150)
+                    }
                 }
+                
+                /* Text(String(toy.id ?? "no id"))
+                 .foregroundColor(.white)
+                 .font(.title)*/
             }
-
-           /* Text(String(toy.id ?? "no id"))
-                .foregroundColor(.white)
-                .font(.title)*/
         }
     }
 }
