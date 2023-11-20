@@ -58,23 +58,44 @@ struct ToyGridView: View {
             LazyVGrid(columns: Array(repeating: .init(.flexible()), count: UIDevice.current.userInterfaceIdiom == .pad ? 4 : 2), spacing: 10) {
                 ForEach(currentToyList) { item in
                     
-                    ZStack {
-                        Rectangle()
-                            .fill(.black)
-                            .cornerRadius(10)
-                            .aspectRatio(contentMode: .fit)
-                        Image("piggy")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                        Text(String(item.id ?? "no id"))
-                            .foregroundColor(.white)
-                            .font(.title)
-                    }
+                    ToyThumbnailView(toy: item)
                     .padding(5)
                 }
             }
             
         } .padding()
+    }
+}
+
+struct ToyThumbnailView: View {
+    
+    var toy: Toy
+    @State private var image: UIImage? = nil
+    
+    var body: some View {
+        ZStack {
+            Rectangle()
+                .fill(.black)
+                .cornerRadius(10)
+                .aspectRatio(contentMode: .fit)
+            
+            if let image {
+                Image(uiImage: image)
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 150, height: 150)
+                    .cornerRadius(10)
+            }
+            Text(String(toy.id ?? "no id"))
+                .foregroundColor(.white)
+                .font(.title)
+        }
+        .task {
+            if let path = toy.images.first {
+                let image = try? await StorageManager.shared.getImage(userId: Auth.auth().currentUser?.uid ?? "default id", path: path)
+                self.image = image
+            }
+        }
     }
 }
 
