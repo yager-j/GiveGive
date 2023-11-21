@@ -16,7 +16,7 @@ struct GiveGiveApp: App {
     
     var body: some Scene {
         WindowGroup {
-            GGView()
+            ContentView()
         }
     }
 }

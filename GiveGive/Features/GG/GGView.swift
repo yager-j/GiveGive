@@ -20,23 +20,25 @@ final class GGViewModel: ObservableObject {
         try await AuthenticationManager.shared.anonymousSignIn()
     }
     
-    func saveImage(item: PhotosPickerItem) {
+    func saveImage(item: UIImage?) {
         guard let user else { return }
         
         Task {
-            guard let data = try await item.loadTransferable(type: Data.self) else {
+            
+            guard let data = item, let id = user.id else {
                 print("Jo error - data is nil")
-                return }
-
-            let (path, name) = try await StorageManager.shared.saveImage(data: data, userId: user.id!)
-
+                return
+            }
+            
+            let (path, name) = try await StorageManager.shared.saveImage(image: data, userId: id)
+            
             print("Jo SUCCESS")
             print("Jo \(path)")
             print("Jo \(name)")
             
-            var newToy = Toy()
+            let newToy = Toy()
             
-          //  try await DatabaseManager.shared.updateToyImagePath(toy: newToy, path: name)
+            //  try await DatabaseManager.shared.updateToyImagePath(toy: newToy, path: name)
             let url = try await StorageManager.shared.getUrlForImage(path: path)
             newToy.images.append(url.absoluteString)
             DatabaseManager.shared.addToy(toy: newToy)
@@ -50,29 +52,18 @@ struct GGView: View {
     @StateObject private var viewModel = GGViewModel()
     
     @State private var showSheet = false
-    
-    @State private var selectedItem: PhotosPickerItem? = nil
+        
+    @State var subjectImage: UIImage? = UIImage()
     
     var body: some View {
         NavigationStack {
             ZStack(alignment: .bottomTrailing) {
-              //  AnimationView()
                 WebView(url: URL(string: "https://my.spline.design/ggverticalfulltransition-8c0e832f19bb844220a9804add0cac98/")!)
-
+                
                 VStack {
-                    //  FeedButton(showSheet: $showSheet)
-                    //  FeedButton2(selectedItem: $selectedItem)
-                    PhotosPicker(selection: $selectedItem, matching: .images, photoLibrary: .shared()) {
-                        
-                        Image(systemName: "fork.knife")
-                            .font(.title.weight(.semibold))
-                            .padding()
-                            .background(Color.pink)
-                            .foregroundColor(.white)
-                            .clipShape(Circle())
-                            .shadow(radius: 4, x: 0, y: 4)
-                    }
-                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 32))
+                    FeedButton(showSheet: $showSheet)
+                    
+                        .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 32))
                     
                     BellyButton()
                 }
@@ -87,19 +78,16 @@ struct GGView: View {
                 }
             }
             .ignoresSafeArea()
-            .onChange(of: selectedItem, perform: { newValue in
-
+            .onChange(of: subjectImage, perform: { newValue in
+                
                 if let newValue {
                     viewModel.saveImage(item: newValue)
                 }
             })
         }
-       /* .sheet(isPresented: $showSheet) {
-            Text("NewCameraView")
-                .onAppear {
-                    DatabaseManager.shared.addToy(toy: Toy())
-                }
-        }*/
+        .sheet(isPresented: $showSheet) {
+            SubjectLiftingView(subjectImage: $subjectImage)
+        }
     }
 }
 
@@ -115,32 +103,6 @@ struct WebView: UIViewRepresentable {
         webView.load(request)
     }
 }
-
-/*struct AnimationView: View {
-    var body: some View {
-        ZStack {
-            ARViewContainer()
-        }
-    }
-}
-
-struct ARViewContainer: UIViewRepresentable {
-    
-    func makeUIView(context: Context) -> ARView {
-        
-        let arView = ARView(frame: .zero, cameraMode: .nonAR, automaticallyConfigureSession: true)
-        
-        arView.environment.lighting.intensityExponent = 3
-        let newAnchor = AnchorEntity(world: .zero)
-        let newEnt = try! Entity.load(named: "gg")
-        newAnchor.addChild(newEnt)
-        arView.scene.addAnchor(newAnchor)
-        
-        return arView
-    }
-    
-    func updateUIView(_ uiView: ARView, context: Context) { }
-}*/
 
 struct FeedButton: View {
     
@@ -158,29 +120,8 @@ struct FeedButton: View {
                 .clipShape(Circle())
                 .shadow(radius: 4, x: 0, y: 4)
         }
-        .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 32))
     }
 }
-
-struct FeedButton2: View {
-    
-    @Binding var selectedItem: PhotosPickerItem?
-    
-    var body: some View {
-        PhotosPicker(selection: $selectedItem, matching: .images, photoLibrary: .shared()) {
-            
-            Image(systemName: "fork.knife")
-                .font(.title.weight(.semibold))
-                .padding()
-                .background(Color.pink)
-                .foregroundColor(.white)
-                .clipShape(Circle())
-                .shadow(radius: 4, x: 0, y: 4)
-        }
-        .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 32))
-    }
-}
-
 
 struct BellyButton: View {
     

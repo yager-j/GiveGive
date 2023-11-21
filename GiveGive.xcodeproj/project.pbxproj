@@ -34,6 +34,7 @@
 		C8A3ED522B0B8640002D558C /* ToyProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8A3ED512B0B8640002D558C /* ToyProfileView.swift */; };
 		C8A3ED552B0B8670002D558C /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = C8A3ED542B0B8670002D558C /* CodeScanner */; };
 		C8A3ED572B0B86BF002D558C /* QRView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8A3ED562B0B86BF002D558C /* QRView.swift */; };
+		C8A3ED5A2B0CAA3F002D558C /* SubjectLiftingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8A3ED592B0CAA3F002D558C /* SubjectLiftingView.swift */; };
 		C8FDDAB72AFD064000A24A82 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FDDAB62AFD064000A24A82 /* StorageManager.swift */; };
 /* End PBXBuildFile section */
 
@@ -60,6 +61,7 @@
 		C85FBDC32AEFE3A0002BFD36 /* gg.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = gg.usdz; sourceTree = "<group>"; };
 		C8A3ED512B0B8640002D558C /* ToyProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToyProfileView.swift; sourceTree = "<group>"; };
 		C8A3ED562B0B86BF002D558C /* QRView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRView.swift; sourceTree = "<group>"; };
+		C8A3ED592B0CAA3F002D558C /* SubjectLiftingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectLiftingView.swift; sourceTree = "<group>"; };
 		C8FDDAB62AFD064000A24A82 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -174,6 +176,7 @@
 		C85FBDBC2AEFE1F6002BFD36 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				C8A3ED582B0CAA29002D558C /* SubjectLifting */,
 				C8A3ED502B0B862D002D558C /* ToyProfile */,
 				C81110E92AF9350700931D20 /* ToyList */,
 				C85FBDBD2AEFE1FE002BFD36 /* GG */,
@@ -204,6 +207,14 @@
 				C8A3ED562B0B86BF002D558C /* QRView.swift */,
 			);
 			path = ToyProfile;
+			sourceTree = "<group>";
+		};
+		C8A3ED582B0CAA29002D558C /* SubjectLifting */ = {
+			isa = PBXGroup;
+			children = (
+				C8A3ED592B0CAA3F002D558C /* SubjectLiftingView.swift */,
+			);
+			path = SubjectLifting;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -299,6 +310,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C81110ED2AF98DD800931D20 /* AuthenticationManager.swift in Sources */,
+				C8A3ED5A2B0CAA3F002D558C /* SubjectLiftingView.swift in Sources */,
 				C85FBDC12AEFE24E002BFD36 /* GGView.swift in Sources */,
 				C8A3ED522B0B8640002D558C /* ToyProfileView.swift in Sources */,
 				C8A3ED572B0B86BF002D558C /* QRView.swift in Sources */,
@@ -445,6 +457,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GiveGive/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Give Give requires access to your device’s camera.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -475,6 +488,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GiveGive/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Give Give requires access to your device’s camera.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
