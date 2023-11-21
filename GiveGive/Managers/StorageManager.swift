@@ -30,9 +30,9 @@ final class StorageManager {
     
     func saveImage(data: Data, userId: String) async throws -> (path: String, name: String) {
         let meta = StorageMetadata()
-        meta.contentType = "image/jpeg"
+        meta.contentType = "image/png"
         
-        let path = "\(UUID().uuidString).jpeg"
+        let path = "\(UUID().uuidString).png"
         let returnedMetadata = try await userReference(userId: userId).child(path).putDataAsync(data, metadata: meta)
         
         guard let returnedPath = returnedMetadata.path, let returnedName = returnedMetadata.name else {
@@ -43,12 +43,11 @@ final class StorageManager {
     }
     
     func saveImage(image: UIImage, userId: String) async throws -> (path: String, name: String) {
-        // image.pngData() use Resize Images (made by Firebase extension) to compress images - paid Firebase plan (extension costs less than $1/month)
-        guard let data = image.jpegData(compressionQuality: 1) else {
+        // Use Resize Images (made by Firebase extension) to compress images - paid Firebase plan (extension costs less than $1/month)
+        guard let data = image.pngData() else {
             throw URLError(.backgroundSessionWasDisconnected)
         }
         
         return try await saveImage(data: data, userId: userId)
     }
-    
 }
