@@ -11,10 +11,11 @@ import FirebaseFirestoreSwift
 
 struct ToyListView: View {
     
-    @State var currentToyList: [Toy] = [Toy(), Toy()]
+    @State var currentToyList: [Toy] = []
+    @State var isDismissed: Bool = false
     
     var body: some View {
-        ToyGridView(currentToyList: $currentToyList)
+        ToyGridView(currentToyList: $currentToyList, isDismissed: $isDismissed)
             .onAppear {
                 listenToFirestore()
             }
@@ -31,6 +32,8 @@ struct ToyListView: View {
                 print("Error getting document \(err)")
             } else {
                 currentToyList.removeAll()
+                isDismissed = true
+                print("listen 36 isDismissed \(isDismissed)")
                 for document in snapshot.documents {
                     let result = Result {
                         try document.data(as: Toy.self)
@@ -43,6 +46,9 @@ struct ToyListView: View {
                         print("Error decoding journal entry \(error)")
                     }
                 }
+                isDismissed = false
+                print("listen 49 isDismissed \(isDismissed)")
+             //   print("currentToyList listv \(currentToyList)")
             }
         }
     }
@@ -51,6 +57,7 @@ struct ToyListView: View {
 struct ToyGridView: View {
     
     @Binding var currentToyList: [Toy]
+    @Binding var isDismissed: Bool
     
     var body: some View {
         
@@ -58,12 +65,16 @@ struct ToyGridView: View {
             LazyVGrid(columns: Array(repeating: .init(.flexible()), count: UIDevice.current.userInterfaceIdiom == .pad ? 4 : 2), spacing: 10) {
                 ForEach(currentToyList) { item in
                     
-                    ToyThumbnailView(toy: item)
+                    ToyThumbnailView(toy: item, isDismissed: $isDismissed)
                     .padding(5)
                 }
             }
-            
-        } .padding()
+        }
+        .padding()
+        .onAppear {
+            print("gridv 75 isDismissed \(isDismissed)")
+           // print("currentToyList gridv \(currentToyList)")
+        }
     }
 }
 
@@ -71,10 +82,11 @@ struct ToyThumbnailView: View {
     
     var toy: Toy
     @State private var url: URL? = nil
+    @Binding var isDismissed: Bool
     
     var body: some View {
         NavigationLink {
-            ToyProfileView(toy: toy)
+            ToyProfileView(vm: ToyProfileViewModel(toy: toy), dismissView: $isDismissed)
         } label: {
             ZStack {
                 Rectangle()
@@ -98,6 +110,9 @@ struct ToyThumbnailView: View {
                 /* Text(String(toy.id ?? "no id"))
                  .foregroundColor(.white)
                  .font(.title)*/
+            }
+            .onAppear {
+                print("toythumb 115 isDismissed \(isDismissed)")
             }
         }
     }

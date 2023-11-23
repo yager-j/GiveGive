@@ -18,7 +18,7 @@ class DatabaseManager: ObservableObject {
     let auth = Auth.auth()
     
     private init() { }
-
+    
     // MARK: CREATE
     
     /**
@@ -34,7 +34,7 @@ class DatabaseManager: ObservableObject {
             }
         }
     }
-   
+    
     /**
      Add toy as a document in Firestore
      */
@@ -70,35 +70,39 @@ class DatabaseManager: ObservableObject {
         print("Jo updateToyImagePathSuccess")
     }
     
+    /**
+     Updates toy owner in Firestore
+     */
+    func updateToyOwner(toyId: String) async throws {
+        let idString = toyId as String
+        let currentUser = Auth.auth().currentUser?.uid
+        
+        do {
+            try await db.collection("toys").document(idString).updateData(["currentOwner" : currentUser ?? "noUserId"])
+            print("toy owner updated \(String(describing: currentUser))")
+        } catch {
+            print("Error updating toy owner")
+        }
+        
+    }
+    
     /*
-    /**
-     Updates toy in Firestore
-     */
-    func updateFirestoreItem(toy: Toy) {
-        if let id = toy.id {
-            do {
-                try db.collection("toys").document(id).setData(from: toy)
-            } catch {
-                fatalError("Unable to encode entry: \(error.localizedDescription)")
-            }
-        }
-    }
-    
-    // MARK: DELETE
-    /**
-     Deletes toy from Firestore
-     */
-    func deleteItem(toy: Toy) {
-        if let id = toy.id {
-            db.collection("toys").document(id).delete() { err in
-                if let err = err {
-                    print("Unable to delete entry: \(err.localizedDescription)")
-                } else {
-                    print("Document successfully removed!")
-                }
-            }
-        }
-    }
-    
-    }*/
+     
+     // MARK: DELETE
+     /**
+      Deletes toy from Firestore
+      */
+     func deleteItem(toy: Toy) {
+     if let id = toy.id {
+     db.collection("toys").document(id).delete() { err in
+     if let err = err {
+     print("Unable to delete entry: \(err.localizedDescription)")
+     } else {
+     print("Document successfully removed!")
+     }
+     }
+     }
+     }
+     
+     }*/
 }

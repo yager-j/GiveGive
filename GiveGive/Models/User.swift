@@ -23,7 +23,11 @@ enum Gender: Codable {
     case male, female, other, na
 }
 
-class Toy: Codable, Identifiable {
+class Toy: Codable, Identifiable, Equatable {
+    static func == (lhs: Toy, rhs: Toy) -> Bool {
+        return lhs.id == rhs.id
+    }
+    
     @DocumentID var id: String?
     
     var category: String = ""
