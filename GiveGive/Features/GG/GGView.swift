@@ -78,7 +78,7 @@ struct GGView: View {
                 }
             }
             .ignoresSafeArea()
-            .onChange(of: subjectImage, perform: { newValue in
+            .onChange(of: subjectImage, { oldValue, newValue in
                 
                 if let newValue {
                     viewModel.saveImage(item: newValue)

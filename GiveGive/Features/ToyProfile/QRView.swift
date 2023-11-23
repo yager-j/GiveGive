@@ -11,28 +11,30 @@ import CoreImage.CIFilterBuiltins
 struct QRView: View {
     
     @State var toy: Toy
-   // @State private var toyID = "id"
     
     let context = CIContext()
     let filter = CIFilter.qrCodeGenerator()
     
     var body: some View {
         HStack {
-            Image(uiImage: generateQRCode(from: "\(String(describing: toy.id))"))
-                .interpolation(.none)
-                .resizable()
-                .scaledToFit()
-                .frame(width: 100, height: 100)
-            
             if let id = toy.id {
+                Image(uiImage: generateQRCode(from: id))
+                    .interpolation(.none)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 100, height: 100)
+                
                 VStack(alignment: .leading) {
                     Text("Toy id \(id)")
-                       // .font(Font.custom("WorkSans-Bold", size: 32))
-                        //.fontWeight(.bold)
+                    // .font(Font.custom("WorkSans-Bold", size: 32))
+                    //.fontWeight(.bold)
                 }
                 .padding(.horizontal)
+                .onAppear {
+                    print("toy id \(id)")
+                }
             }
-           
+            
             Spacer()
         }
         .padding()
