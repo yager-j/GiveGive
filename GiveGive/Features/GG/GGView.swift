@@ -40,7 +40,6 @@ final class GGViewModel: ObservableObject {
             
             let newToy = Toy()
             
-            //  try await DatabaseManager.shared.updateToyImagePath(toy: newToy, path: name)
             let url = try await StorageManager.shared.getUrlForImage(path: path)
             newToy.images.append(url.absoluteString)
             dbManager.addToy(toy: newToy)

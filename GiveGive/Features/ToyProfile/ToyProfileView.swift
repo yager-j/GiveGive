@@ -11,23 +11,10 @@ import CodeScanner
 @MainActor
 final class ToyProfileViewModel: ObservableObject {
     
-  //  @EnvironmentObject var dbManager: DatabaseManager
     @Published var toy: Toy
     
     init(toy: Toy) {
         self.toy = toy
-    }
-    
-    func changeOwner(toyId: String) async {
-        do {
-          //  try await DatabaseManager.shared.updateToyOwner(toyId: toyId)
-            print("22")
-        } catch {
-            print("Task failed")
-        }
-        print("26")
-      //  self.objectWillChange.send()
-        print("28")
     }
 }
 
@@ -36,18 +23,12 @@ struct ToyProfileView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject var vm: ToyProfileViewModel
 
-  //  @State var toy: Toy
     @State private var isShowingScanner = false
     @State private var receivedToyId: String = ""
     
     @Binding var dismissView: Bool
     
     @EnvironmentObject var dbManager: DatabaseManager
-    
-   /* init(vm: ToyProfileViewModel, dismissView: Bool) {
-        _vm = StateObject(wrappedValue: vm)
-        dismissView = self.dismissView
-    }*/
     
     var body: some View {
         
@@ -61,7 +42,6 @@ struct ToyProfileView: View {
                     Spacer()
                     
                     if let urlString = vm.toy.images.first, let url = URL(string: urlString) {
-                 //   if let urlString = toy.images.first, let url = URL(string: urlString) {
                         AsyncImage(url: url) { image in
                             image
                                 .resizable()
@@ -103,24 +83,16 @@ struct ToyProfileView: View {
         .onChange(of: isShowingScanner, { oldValue, newValue in
             Task {
                 if !receivedToyId.isEmpty {
-                   // await vm.changeOwner(toyId: receivedToyId)
                     try await dbManager.updateToyOwner(toyId: receivedToyId)
                     dismiss()
                 }
             }
         })
-        .onChange(of: dismissView, { oldValue, newValue in
+        .onChange(of: dbManager.currentToyList, { oldValue, newValue in
             Task {
-                print("105 dismissView changed oldValue \(String(describing: oldValue)) newValue \(String(describing: newValue))")
                 dismiss()
             }
         })
-       /* .onChange(of: vm.toy, { oldValue, newValue in
-            Task {
-                print("80 toy current owner changed oldValue \(String(describing: oldValue)) newValue \(String(describing: newValue))")
-                dismiss()
-            }
-        })*/
         .sheet(isPresented: $isShowingScanner) {
             CodeScannerView(codeTypes: [.qr], simulatedData: "id123", completion: handleScan)
         }
