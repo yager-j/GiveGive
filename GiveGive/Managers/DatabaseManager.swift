@@ -17,7 +17,11 @@ class DatabaseManager: ObservableObject {
     let db = Firestore.firestore()
     let auth = Auth.auth()
     
-    private init() { }
+    @Published var currentToyList: [Toy] = []
+    
+    init() {
+        listenToFirestore()
+    }
     
     // MARK: CREATE
     
@@ -56,7 +60,32 @@ class DatabaseManager: ObservableObject {
     }
     
     // MARK: READ
-    
+    func listenToFirestore() {
+        let userId = Auth.auth().currentUser?.uid
+        let db = Firestore.firestore()
+        
+        db.collection("toys").order(by: "dateAdded", descending: false).whereField("currentOwner", isEqualTo: userId ?? "defaultId").addSnapshotListener { snapshot, err in
+            guard let snapshot = snapshot else { return }
+            
+            if let err = err {
+                print("Error getting document \(err)")
+            } else {
+                self.currentToyList.removeAll()
+                for document in snapshot.documents {
+                    let result = Result {
+                        try document.data(as: Toy.self)
+                    }
+                    
+                    switch result {
+                    case .success(let toy):
+                        self.currentToyList.append(toy)
+                    case .failure(let error):
+                        print("Error decoding journal entry \(error)")
+                    }
+                }
+            }
+        }
+    }
     
     // MARK: UPDATE
     

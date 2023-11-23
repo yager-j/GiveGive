@@ -14,6 +14,8 @@ import WebKit
 @MainActor
 final class GGViewModel: ObservableObject {
     
+    @EnvironmentObject var dbManager: DatabaseManager
+
     var user = AuthenticationManager.shared.currentUser
     
     func signInUser() async throws {
@@ -41,7 +43,7 @@ final class GGViewModel: ObservableObject {
             //  try await DatabaseManager.shared.updateToyImagePath(toy: newToy, path: name)
             let url = try await StorageManager.shared.getUrlForImage(path: path)
             newToy.images.append(url.absoluteString)
-            DatabaseManager.shared.addToy(toy: newToy)
+            dbManager.addToy(toy: newToy)
             print("Jo addToySuccess \(newToy.images)")
         }
     }
