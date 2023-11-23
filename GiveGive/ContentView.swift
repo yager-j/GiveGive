@@ -8,8 +8,11 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject var dbManager = DatabaseManager()
+    
     var body: some View {
         GGView()
+            .environmentObject(dbManager)
     }
 }
 

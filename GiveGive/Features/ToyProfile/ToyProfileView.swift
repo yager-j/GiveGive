@@ -10,6 +10,8 @@ import CodeScanner
 
 @MainActor
 final class ToyProfileViewModel: ObservableObject {
+    
+  //  @EnvironmentObject var dbManager: DatabaseManager
     @Published var toy: Toy
     
     init(toy: Toy) {
@@ -18,7 +20,7 @@ final class ToyProfileViewModel: ObservableObject {
     
     func changeOwner(toyId: String) async {
         do {
-            try await DatabaseManager.shared.updateToyOwner(toyId: toyId)
+          //  try await DatabaseManager.shared.updateToyOwner(toyId: toyId)
             print("22")
         } catch {
             print("Task failed")
@@ -39,6 +41,8 @@ struct ToyProfileView: View {
     @State private var receivedToyId: String = ""
     
     @Binding var dismissView: Bool
+    
+    @EnvironmentObject var dbManager: DatabaseManager
     
    /* init(vm: ToyProfileViewModel, dismissView: Bool) {
         _vm = StateObject(wrappedValue: vm)
@@ -99,7 +103,8 @@ struct ToyProfileView: View {
         .onChange(of: isShowingScanner, { oldValue, newValue in
             Task {
                 if !receivedToyId.isEmpty {
-                    await vm.changeOwner(toyId: receivedToyId)
+                   // await vm.changeOwner(toyId: receivedToyId)
+                    try await dbManager.updateToyOwner(toyId: receivedToyId)
                     dismiss()
                 }
             }
