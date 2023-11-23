@@ -12,7 +12,6 @@ import FirebaseFirestoreSwift
 struct ToyListView: View {
     
     @EnvironmentObject var dbManager: DatabaseManager
-   // @State var currentToyList: [Toy] = []
     @State var isDismissed: Bool = false
     
     var body: some View {
@@ -28,7 +27,6 @@ struct ToyGridView: View {
     
     @EnvironmentObject var dbManager: DatabaseManager
 
-   // var currentToyList: [Toy]
     @Binding var isDismissed: Bool
     
     var body: some View {
@@ -43,10 +41,6 @@ struct ToyGridView: View {
             }
         }
         .padding()
-        .onAppear {
-            print("gridv 75 isDismissed \(isDismissed)")
-           // print("currentToyList gridv \(currentToyList)")
-        }
     }
 }
 
