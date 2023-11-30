@@ -64,7 +64,7 @@ struct ToyThumbnailView: View {
                     AsyncImage(url: url) { image in
                         image
                             .resizable()
-                            .scaledToFill()
+                            .aspectRatio(contentMode: .fit)
                             .frame(width: 150, height: 150)
                             .cornerRadius(10)
                     } placeholder: {
