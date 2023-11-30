@@ -37,47 +37,51 @@ struct ToyProfileView: View {
                 QRView(toy: vm.toy)
                 
                 Spacer()
-                
-                HStack {
-                    Spacer()
-                    
-                    if let urlString = vm.toy.images.first, let url = URL(string: urlString) {
-                        AsyncImage(url: url) { image in
-                            image
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: 300, height: 300)
-                                .cornerRadius(10)
-                        } placeholder: {
-                            ProgressView()
-                                .frame(width: 150, height: 150)
+                ZStack {
+                    HStack {
+                        Spacer()
+                        
+                        if let urlString = vm.toy.images.first, let url = URL(string: urlString) {
+                            AsyncImage(url: url) { image in
+                                image
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: 300, height: 300)
+                                    .cornerRadius(10)
+                            } placeholder: {
+                                ProgressView()
+                                    .frame(width: 150, height: 150)
+                            }
+                        }
+                        
+                        Spacer()
+                    }
+
+                    VStack {
+                        Spacer()
+                        
+                        HStack {
+                            Spacer()
+                            
+                            Button {
+                                isShowingScanner = true
+                            } label: {
+                                Text("SWAP!")
+                                    .font(Font.custom("WorkSans-SemiBold", size: 20))
+                                    .foregroundStyle(Color.black)
+                                    .padding()
+                                    .frame(height: 50)
+                                    .background(Color("BackgroundColor"))
+                                    .cornerRadius(5)
+                                    .padding()
+                            }
+                            .padding()
                         }
                     }
-                    
-                    Spacer()
                 }
-                .onAppear {
-                    print("toyprofileview 76 dismissView \(dismissView)")
-                }
-                Spacer()
+                .background(Color(Color.gray.opacity(0.2)))
+                .cornerRadius(15.0)
                 
-                HStack {
-                    Spacer()
-                    
-                    Button {
-                        isShowingScanner = true
-                    } label: {
-                        Text("Swap toy")
-                            .font(Font.custom("WorkSans-SemiBold", size: 20))
-                            .padding()
-                            .frame(height: 50)
-                        // .background(Color("BackgroundColor"))
-                            .cornerRadius(5)
-                            .padding()
-                    }
-                }
-                
-                Spacer()
             }
         }
         .onChange(of: isShowingScanner, { oldValue, newValue in
