@@ -45,7 +45,7 @@ struct ToyProfileView: View {
                             AsyncImage(url: url) { image in
                                 image
                                     .resizable()
-                                    .scaledToFill()
+                                    .aspectRatio(contentMode: .fit)
                                     .frame(width: 300, height: 300)
                                     .cornerRadius(10)
                             } placeholder: {
