@@ -22,23 +22,15 @@ struct QRView: View {
                     .interpolation(.none)
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 100, height: 100)
+                    .frame(width: 200, height: 200)
+                    .cornerRadius(5)
                 
-                VStack(alignment: .leading) {
-                    Text("Toy id \(id)")
-                    // .font(Font.custom("WorkSans-Bold", size: 32))
-                    //.fontWeight(.bold)
-                }
-                .padding(.horizontal)
-                .onAppear {
-                    print("toy id \(id)")
-                }
             }
             
             Spacer()
         }
         .padding()
-        .background(Color("BackgroundColor"))
+        .background(Color("BackgroundColor").opacity(0.7))
         .cornerRadius(15.0)
     }
     

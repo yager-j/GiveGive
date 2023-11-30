@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C81003312B0F81F9000177EF /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81003302B0F81F9000177EF /* Extensions.swift */; };
 		C81110A62AF3D15900931D20 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = C81110A52AF3D15900931D20 /* FirebaseAnalytics */; };
 		C81110AA2AF3D15900931D20 /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = C81110A92AF3D15900931D20 /* FirebaseAnalyticsSwift */; };
 		C81110B22AF3D15900931D20 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = C81110B12AF3D15900931D20 /* FirebaseAuth */; };
@@ -39,6 +40,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C81003302B0F81F9000177EF /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		C81110E32AF3E92400931D20 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C81110E52AF91C2600931D20 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		C81110E72AF91CC200931D20 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -83,6 +85,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C810032F2B0F81EA000177EF /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				C81003302B0F81F9000177EF /* Extensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		C811109F2AF3A34F00931D20 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
@@ -137,6 +147,7 @@
 		C85FBD9D2AEFD9AC002BFD36 /* GiveGive */ = {
 			isa = PBXGroup;
 			children = (
+				C810032F2B0F81EA000177EF /* Extensions */,
 				C81110E32AF3E92400931D20 /* GoogleService-Info.plist */,
 				C81110E02AF3E7B500931D20 /* Managers */,
 				C81110A12AF3A37D00931D20 /* Models */,
@@ -316,6 +327,7 @@
 				C8A3ED572B0B86BF002D558C /* QRView.swift in Sources */,
 				C81110E82AF91CC200931D20 /* User.swift in Sources */,
 				C81110E62AF91C2600931D20 /* DatabaseManager.swift in Sources */,
+				C81003312B0F81F9000177EF /* Extensions.swift in Sources */,
 				C85FBDA12AEFD9AC002BFD36 /* ContentView.swift in Sources */,
 				C81110EB2AF9351900931D20 /* ToyListView.swift in Sources */,
 				C85FBD9F2AEFD9AC002BFD36 /* GiveGiveApp.swift in Sources */,

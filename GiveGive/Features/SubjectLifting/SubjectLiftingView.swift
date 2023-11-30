@@ -9,11 +9,14 @@ import SwiftUI
 import VisionKit
 
 struct SubjectLiftingView: View {
-        
+    
+    @Environment(\.dismiss) var dismiss
+
     @State private var image = UIImage()
     @State private var readyToNavigate: Bool = false
     @State private var photoTaken: Bool = false
     @Binding var subjectImage: UIImage?
+    @Binding var subjectArray: [UIImage]
     
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
@@ -26,6 +29,10 @@ struct SubjectLiftingView: View {
                 }
             }
             .padding(.horizontal, 8)
+            .onChange(of: subjectImage) { oldValue, newValue in
+                subjectArray.append(subjectImage ?? UIImage())
+                dismiss()
+            }
         }
     }
 }
