@@ -41,7 +41,7 @@ struct ToyProfileView: View {
                     HStack {
                         Spacer()
                         
-                        if let urlString = vm.toy.images.first, let url = URL(string: urlString) {
+                        if let urlString = vm.toy.images.first?.url, let url = URL(string: urlString) {
                             AsyncImage(url: url) { image in
                                 image
                                     .resizable()

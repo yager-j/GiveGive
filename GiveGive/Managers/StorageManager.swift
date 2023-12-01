@@ -61,4 +61,15 @@ final class StorageManager {
 
         return try await saveImage(data: compressedPng, userId: userId)
     }
+    
+    func deleteImage(name: String, userId: String) {
+       
+        userReference(userId: userId).child(name).delete { error in
+            if let error {
+                print(error)
+            } else {
+                print("Image deleted from storage")
+            }
+        }
+    }
 }
