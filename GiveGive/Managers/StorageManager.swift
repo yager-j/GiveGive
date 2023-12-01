@@ -49,7 +49,12 @@ final class StorageManager {
             throw URLError(.backgroundSessionWasDisconnected)
         }
         
-        guard let compressedPng = compressedImage.pngData() else {
+        guard let pixelatedImage = compressedImage.pixelate() else {
+            print("couldn't pixelate")
+            throw URLError(.backgroundSessionWasDisconnected)
+        }
+        
+        guard let compressedPng = pixelatedImage.pngData() else {
             print("error getting png data")
             throw URLError(.backgroundSessionWasDisconnected)
         }

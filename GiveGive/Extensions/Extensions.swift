@@ -33,3 +33,27 @@ extension UIImage {
         return self.preparingThumbnail(of: newSize)
     }
 }
+
+extension UIImage {
+    
+    func pixelate() -> UIImage? {
+        let image = self
+        guard let currentCGImage = image.cgImage else { return nil }
+        let currentCIImage = CIImage(cgImage: currentCGImage)
+
+        let filter = CIFilter(name: "CIPixellate")
+        filter?.setValue(currentCIImage, forKey: kCIInputImageKey)
+        filter?.setValue(8, forKey: kCIInputScaleKey)
+        guard let outputImage = filter?.outputImage else { return nil }
+
+        let context = CIContext()
+
+        if let cgimg = context.createCGImage(outputImage, from: outputImage.extent) {
+            let processedImage = UIImage(cgImage: cgimg)
+            print(processedImage.size)
+            return processedImage
+        }
+        
+        return nil
+    }
+}
