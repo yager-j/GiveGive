@@ -8,14 +8,58 @@
 import SwiftUI
 import VisionKit
 
+
+@MainActor
+final class SubjectLiftingViewModel: ObservableObject {
+    
+    var user = AuthenticationManager.shared.currentUser
+    
+    func pixelate(image: UIImage) throws -> UIImage? {
+        
+        guard let compressedImage = image.compress() else {
+            print("error compressing")
+            throw URLError(.backgroundSessionWasDisconnected)
+        }
+        
+        guard let pixelatedImage = compressedImage.pixelate() else {
+            print("couldn't pixelate")
+            throw URLError(.backgroundSessionWasDisconnected)
+        }
+        return pixelatedImage
+    }
+    
+    func saveImage(item: UIImage?) {
+        guard let user else { return }
+        
+        Task {
+            
+            guard let data = item, let id = user.id else { return }
+            
+            let (path, name) = try await StorageManager.shared.saveImage(image: data, userId: id)
+            
+            print("SUCCESS")
+            
+            let newToy = Toy()
+            
+            let url = try await StorageManager.shared.getUrlForImage(path: path)
+            
+            let toyImage = ToyImage(url: url.absoluteString, path: path, name: name)
+            newToy.images.append(toyImage)
+            
+            DatabaseManager.shared.addToy(toy: newToy)
+        }
+    }
+}
+
 struct SubjectLiftingView: View {
     
     @Environment(\.dismiss) var dismiss
+    @StateObject private var viewModel = SubjectLiftingViewModel()
 
     @State private var image = UIImage()
     @State private var readyToNavigate: Bool = false
     @State private var photoTaken: Bool = false
-    @Binding var subjectImage: UIImage?
+    @State private var subjectImage: UIImage?
     @Binding var subjectArray: [UIImage]
     
     var body: some View {
@@ -30,8 +74,21 @@ struct SubjectLiftingView: View {
             }
             .padding(.horizontal, 8)
             .onChange(of: subjectImage) { oldValue, newValue in
-                subjectArray.append(subjectImage ?? UIImage())
-                dismiss()
+
+                if let newValue {
+                    do {
+                        let pixelatedImage = try viewModel.pixelate(image: newValue)
+                        viewModel.saveImage(item: pixelatedImage)
+                        subjectArray.append(pixelatedImage ?? UIImage())
+                    } catch {
+                        print("error saving image to db")
+                    }
+                    
+                    dismiss()
+                }
+            }
+            .onAppear {
+                subjectArray.removeAll()
             }
         }
     }

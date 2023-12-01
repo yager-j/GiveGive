@@ -13,33 +13,11 @@ import WebKit
 
 @MainActor
 final class GGViewModel: ObservableObject {
-        
+    
     var user = AuthenticationManager.shared.currentUser
     
     func signInUser() async throws {
         try await AuthenticationManager.shared.anonymousSignIn()
-    }
-    
-    func saveImage(item: UIImage?) {
-        guard let user else { return }
-        
-        Task {
-            
-            guard let data = item, let id = user.id else { return }
-            
-            let (path, name) = try await StorageManager.shared.saveImage(image: data, userId: id)
-            
-            print("SUCCESS")
-            
-            let newToy = Toy()
-            
-            let url = try await StorageManager.shared.getUrlForImage(path: path)
-            
-            let toyImage = ToyImage(url: url.absoluteString, path: path, name: name)
-            newToy.images.append(toyImage)
-
-            DatabaseManager.shared.addToy(toy: newToy)
-        }
     }
 }
 
@@ -49,93 +27,89 @@ struct GGView: View {
     
     @State private var showSheet = false
     @State private var showSubjects = false
+    @State private var fallingToyArray: [FallingToy] = []
     
-    @State var subjectImage: UIImage? = UIImage()
     @State var subjectArray: [UIImage] = []
-    
-    let screenWidth = UIScreen.main.bounds.size.width
-    let screenHeight = UIScreen.main.bounds.size.height
-    
-    @State var position = CGPoint(x: 0, y: 0)
-    @State var xPos = CGFloat()
-    
-    @State var offset: CGSize = .zero
     
     var body: some View {
         NavigationStack {
-            ZStack(alignment: .bottomTrailing) {
-                WebView(url: URL(string: "https://my.spline.design/ggverticalfulltransitioncopy-01dc2445f753ce5e70fecb61e7aca5cd/")!)
-                    .ignoresSafeArea()
-                
-                VStack {
-                    FeedButton(showSheet: $showSheet)
-                        .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 32))
+            GeometryReader { geometry in
+                ZStack(alignment: .bottomTrailing) {
+                    WebView(url: URL(string: "https://my.spline.design/ggverticalfulltransitioncopy-01dc2445f753ce5e70fecb61e7aca5cd/")!)
+                        .ignoresSafeArea()
                     
-                    BellyButton()
-                }
-                
-             /*   if showSubjects {
-                    HStack {
-                        ForEach(subjectArray, id: \.self) { subject in
-                            Image(uiImage: subject)
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: 200, height: 200)
-                                .position(position)
-                              //  .offset(offset)
-                                .onReceive(timer) { input in
-                                    withAnimation(.easeInOut(duration: 3).delay(2)) {
-                                          self.position = CGPoint(x: screenWidth/2, y: screenHeight)
-                                      //  self.offset = CGSize(width: screenWidth/2, height: screenHeight)
-                                    }
-                                }
+                    if showSubjects {
+                        HStack {
+                            ForEach(fallingToyArray) { fallingToy in
+                                Image(uiImage: fallingToy.image)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: 200, height: 200)
+                                    .position(fallingToy.position)
+                            }
                         }
-                        
-                        /*.onAppear {
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                                print("101 do withAnim")
-                                withAnimation(.easeInOut(duration: 3).delay(2)) {
-                                      self.position = CGPoint(x: screenWidth/2, y: screenHeight)
-                                  //  self.offset = CGSize(width: screenWidth/2, height: screenHeight)
-                                }
-                                    }
-                            
-                        }*/
                     }
-                }*/
-            }
-            .ignoresSafeArea()
-            .onAppear {
-                xPos = CGFloat.random(in: 0..<screenWidth)
-                position = CGPoint(x: xPos, y: -50)
-                Task {
-                    do {
-                        try await viewModel.signInUser()
-                    } catch {
-                        print(error)
-                    }
-                }
-            }
-            .onChange(of: subjectImage, { oldValue, newValue in
-                
-                position = CGPoint(x: screenWidth/2, y: 0)
-                
-                if let newValue {
-                    viewModel.saveImage(item: newValue)
-                }
-                //  subjectArray.append(newValue)
-               // showSubjects = true
-                
-            })
-          /*  .onChange(of: showSheet, { oldValue, newValue in
-                if subjectArray.count != 0 {
                     
+                    VStack {
+                        FeedButton(showSheet: $showSheet)
+                            .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 32))
+                        
+                        BellyButton()
+                    }
                 }
-            })*/
+                .ignoresSafeArea()
+                .onAppear {
+
+                    Task {
+                        do {
+                            try await viewModel.signInUser()
+                        } catch {
+                            print(error)
+                        }
+                    }
+                }
+                .sheet(isPresented: $showSheet, onDismiss: {
+                    didDismiss(geometry: geometry)
+                }, content: {
+                    SubjectLiftingView(subjectArray: $subjectArray)
+                })
+                .onChange(of: showSheet) { oldValue, newValue in
+                    showSubjects = !showSheet
+                    if !showSubjects {
+                        fallingToyArray.removeAll()
+                    }
+                }
+            }
         }
-        .sheet(isPresented: $showSheet) {
-            SubjectLiftingView(subjectImage: $subjectImage, subjectArray: $subjectArray)
+    }
+    
+    func didDismiss(geometry: GeometryProxy) {
+        fallingToyArray.removeAll()
+        for index in 0..<subjectArray.count {
+            let xPos = CGFloat.random(in: 0..<geometry.size.width)
+            let position = CGPoint(x: xPos, y: -150)
+            let fallingToy = FallingToy(image: subjectArray[index], position: position)
+            fallingToyArray.append(fallingToy)
         }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            let screenCenter = geometry.size.width/2
+            for index in 0..<fallingToyArray.count {
+                withAnimation(.easeIn(duration: 1)) {
+                    fallingToyArray[index].position = CGPoint(x: screenCenter, y: geometry.size.height)
+                }
+            }
+        }
+    }
+}
+
+struct FallingToy: Identifiable {
+    let id = UUID()
+    let image: UIImage
+    var position: CGPoint
+    
+    mutating func updatePosition(_ position: CGPoint) {
+        self.position = position
     }
 }
 
@@ -194,9 +168,3 @@ struct BellyButton: View {
         .padding(EdgeInsets(top: 16, leading: 0, bottom: 32, trailing: 32))
     }
 }
-
-#Preview {
-    GGView()
-}
-
-
