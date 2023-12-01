@@ -30,13 +30,14 @@ final class GGViewModel: ObservableObject {
             let (path, name) = try await StorageManager.shared.saveImage(image: data, userId: id)
             
             print("SUCCESS")
-            print("\(path)")
-            print("\(name)")
             
             let newToy = Toy()
             
             let url = try await StorageManager.shared.getUrlForImage(path: path)
-            newToy.images.append(url.absoluteString)
+            
+            let toyImage = ToyImage(url: url.absoluteString, path: path, name: name)
+            newToy.images.append(toyImage)
+
             DatabaseManager.shared.addToy(toy: newToy)
         }
     }

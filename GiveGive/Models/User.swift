@@ -15,8 +15,7 @@ class User: Codable, Identifiable {
     var id: String?
     var birthdate = Date()
     var gender = Gender.na
-   // var currentToys: [Toy] = []
-   // var historyToys: [Toy] = []
+
 }
 
 enum Gender: Codable {
@@ -32,7 +31,7 @@ class Toy: Codable, Identifiable, Equatable {
     
     var category: String = ""
     var dateAdded = Timestamp()
-    var images: [String] = []
+    var images: [ToyImage] = []
     var location: Location = Location()
     var readyToSwap: Bool = false
     var swapHistory: [Date] = []
@@ -43,5 +42,11 @@ class Toy: Codable, Identifiable, Equatable {
 
 struct Location: Codable {
     
+}
+
+struct ToyImage: Codable {
+    let url: String
+    let path: String
+    let name: String
 }
 

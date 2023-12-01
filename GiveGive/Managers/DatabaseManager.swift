@@ -55,7 +55,7 @@ class DatabaseManager: ObservableObject {
             _ = try db.collection("toys").addDocument(from: newToy)
             
         } catch {
-            print("Error saving to db")
+            print("Error saving toy to db")
         }
     }
     
@@ -68,7 +68,7 @@ class DatabaseManager: ObservableObject {
             guard let snapshot = snapshot else { return }
             
             if let err = err {
-                print("Error getting document \(err)")
+                print("Error getting toy document \(err)")
             } else {
                 self.currentToyList.removeAll()
                 for document in snapshot.documents {
@@ -80,7 +80,7 @@ class DatabaseManager: ObservableObject {
                     case .success(let toy):
                         self.currentToyList.append(toy)
                     case .failure(let error):
-                        print("Error decoding journal entry \(error)")
+                        print("Error decoding toy list \(error)")
                     }
                 }
             }
@@ -89,15 +89,14 @@ class DatabaseManager: ObservableObject {
     
     // MARK: UPDATE
     
-    func updateToyImagePath(toy: Toy, path: String) async throws {
+   /* func updateToyImagePath(toy: Toy, path: String) async throws {
         guard let id = toy.id else { return }
         let data: [String: Any] = [
             id : path
         ]
         toy.images.append(path)
         try await db.collection("toys").document(id).setData(data)
-        print("Jo updateToyImagePathSuccess")
-    }
+    }*/
     
     /**
      Updates toy owner in Firestore
@@ -115,23 +114,26 @@ class DatabaseManager: ObservableObject {
         
     }
     
-    /*
+    
      
-     // MARK: DELETE
-     /**
-      Deletes toy from Firestore
-      */
-     func deleteItem(toy: Toy) {
-     if let id = toy.id {
-     db.collection("toys").document(id).delete() { err in
-     if let err = err {
-     print("Unable to delete entry: \(err.localizedDescription)")
-     } else {
-     print("Document successfully removed!")
-     }
-     }
-     }
-     }
-     
-     }*/
+    // MARK: DELETE
+    /**
+     Deletes toy from Firestore
+     **/
+    func deleteItem(toy: Toy) {
+        if let id = toy.id {
+            
+            if let name = toy.images.first?.name, let currentUser = Auth.auth().currentUser?.uid {
+                StorageManager.shared.deleteImage(name: name, userId: currentUser)
+            }
+            
+            db.collection("toys").document(id).delete() { err in
+                if let err {
+                    print("Unable to delete entry: \(err.localizedDescription)")
+                } else {
+                    print("Document successfully removed")
+                }
+            }
+        }
+    }
 }

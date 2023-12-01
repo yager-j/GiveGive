@@ -46,6 +46,8 @@ struct ToyGridView: View {
 
 struct ToyThumbnailView: View {
     
+    @EnvironmentObject var dbManager: DatabaseManager
+
     var toy: Toy
     @State private var url: URL? = nil
     @Binding var isDismissed: Bool
@@ -60,7 +62,7 @@ struct ToyThumbnailView: View {
                     .cornerRadius(10)
                     .aspectRatio(contentMode: .fit)
                 
-                if let urlString = toy.images.first, let url = URL(string: urlString) {
+                if let urlString = toy.images.first?.url, let url = URL(string: urlString) {
                     AsyncImage(url: url) { image in
                         image
                             .resizable()
@@ -72,13 +74,22 @@ struct ToyThumbnailView: View {
                             .frame(width: 150, height: 150)
                     }
                 }
-                
-                /* Text(String(toy.id ?? "no id"))
-                 .foregroundColor(.white)
-                 .font(.title)*/
             }
-            .onAppear {
-                print("toythumb 115 isDismissed \(isDismissed)")
+            .overlay(alignment: .topTrailing) {
+                Button {
+                    dbManager.deleteItem(toy: toy)
+                } label: {
+                    Text("x")
+                        .font(.caption)
+                        .fontWeight(.bold)
+                        .foregroundStyle(Color.black)
+                        .padding(4)
+                        .background(Circle().fill(Color("BackgroundColor")))
+                        .opacity(0.8)
+                        .shadow(radius: 2)
+                       
+                }
+
             }
         }
     }
