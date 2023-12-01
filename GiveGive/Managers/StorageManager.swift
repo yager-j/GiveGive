@@ -43,18 +43,8 @@ final class StorageManager {
     }
     
     func saveImage(image: UIImage, userId: String) async throws -> (path: String, name: String) {
-        // You can also use Resize Images (made by Firebase extension) to compress images - paid Firebase plan (extension costs less than $1/month)
-        guard let compressedImage = image.compress() else {
-            print("error compressing")
-            throw URLError(.backgroundSessionWasDisconnected)
-        }
         
-        guard let pixelatedImage = compressedImage.pixelate() else {
-            print("couldn't pixelate")
-            throw URLError(.backgroundSessionWasDisconnected)
-        }
-        
-        guard let compressedPng = pixelatedImage.pngData() else {
+        guard let compressedPng = image.pngData() else {
             print("error getting png data")
             throw URLError(.backgroundSessionWasDisconnected)
         }

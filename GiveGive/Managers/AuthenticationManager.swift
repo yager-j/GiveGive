@@ -45,6 +45,5 @@ final class AuthenticationManager {
                 
         self.currentUser = newUser
         try await DatabaseManager.shared.addUserToDb(user: newUser)
-        print("Jo uid \(userUID)")
     }
 }

@@ -94,5 +94,3 @@ struct ToyThumbnailView: View {
         }
     }
 }
-
-// TODO: Make ViewModel for ToyListView with listenToFirestore in it
